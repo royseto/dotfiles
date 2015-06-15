@@ -22,9 +22,13 @@
      emacs-lisp
      (git :variables
           git-gutter-use-fringe t)
+     html
+     javascript
      ;; markdown
      ;; org
+     python
      ;; shell
+     sql
      ;; syntax-checking
      )
    ;; List of additional packages that will be installed wihout being
