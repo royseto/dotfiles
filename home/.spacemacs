@@ -20,8 +20,8 @@
      ;; auto-completion
      ;; better-defaults
      emacs-lisp
-     ;; (git :variables
-     ;;      git-gutter-use-fringe t)
+     (git :variables
+          git-gutter-use-fringe t)
      ;; markdown
      ;; org
      ;; shell
@@ -151,7 +151,63 @@ before layers configuration."
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
-)
+  (setq temporary-file-directory "~/tmp/emacs")
+
+  (setq backup-directory-alist
+        `((".*" . ,temporary-file-directory)))
+  (setq auto-save-file-name-transforms
+        `((".*" ,temporary-file-directory t)))
+
+  ;; Bind C-c r and C-c C-r to replace-regexp
+  (global-set-key (kbd "C-c r") 'replace-regexp)
+  (global-set-key (kbd "C-c C-r") 'replace-regexp)
+
+  ;; Use spaces instead of tabs (use C-q C-i to override)
+  (setq-default indent-tabs-mode nil)
+
+  ;; Show trailing whitespace by defalt
+  ;; See http://www.gnu.org/software/emacs/manual/html_node/emacs/Useless-Whitespace.html
+  (setq-default show-trailing-whitespace t)
+  (setq-default indicate-empty-lines t)
+
+  ;; Show matching parents
+  (show-paren-mode 1)
+
+  ;; Disable activating the region for C-x C-x.
+  (defun exchange-point-and-mark-no-activate ()
+    "Identical to \\[exchange-point-and-mark] but will not activate the region."
+    (interactive)
+    (exchange-point-and-mark)
+    (deactivate-mark nil))
+  (define-key global-map [remap exchange-point-and-mark] 'exchange-point-and-mark-no-activate)
+
+  ;; Define revert-all-buffers command (useful after some Git commands).
+  (defun revert-all-buffers ()
+    "Refreshes all open buffers from their respective files."
+    (interactive)
+    (dolist (buf (buffer-list))
+      (with-current-buffer buf
+        (when (and (buffer-file-name) (file-exists-p (buffer-file-name)) (not (buffer-modified-p)))
+          (revert-buffer t t t) )))
+    (message "Refreshed open files."))
+
+  ;; Transpose windows command
+  ;; See http://www.emacswiki.org/emacs-en/TransposeWindows
+
+  (defun transpose-windows (arg)
+    "Transpose the buffers shown in two windows."
+    (interactive "p")
+    (let ((selector (if (>= arg 0) 'next-window 'previous-window)))
+      (while (/= arg 0)
+        (let ((this-win (window-buffer))
+              (next-win (window-buffer (funcall selector))))
+          (set-window-buffer (selected-window) next-win)
+          (set-window-buffer (funcall selector) this-win)
+          (select-window (funcall selector)))
+        (setq arg (if (plusp arg) (1- arg) (1+ arg))))))
+
+  (define-key ctl-x-4-map (kbd "t") 'transpose-windows)
+ )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
