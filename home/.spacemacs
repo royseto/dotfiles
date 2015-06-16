@@ -163,6 +163,8 @@ layers configuration."
   (setq auto-save-file-name-transforms
         `((".*" ,temporary-file-directory t)))
 
+  (setq spacemacs-indent-sensitive-modes '(sql-mode))
+
   ;; Bind C-c r and C-c C-r to replace-regexp
   (global-set-key (kbd "C-c r") 'replace-regexp)
   (global-set-key (kbd "C-c C-r") 'replace-regexp)
