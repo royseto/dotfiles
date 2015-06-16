@@ -28,7 +28,8 @@
      ;; org
      python
      ;; shell
-     sql
+     ;; sql
+     sql-rs
      ;; syntax-checking
      )
    ;; List of additional packages that will be installed wihout being
@@ -294,19 +295,23 @@ layers configuration."
              (ig-move-line-to-column (+ current tab-width))))))
 
   (add-hook 'sql-mode-hook
-            (function (lambda ()
-                        (make-local-variable 'indent-line-function)
-                        (setq indent-line-function 'ig-indent-sql)
-                        (setq tab-width 4)
-                        (setq tab-stop-list (4, 8, 12, 16, 20, 24, 28, 32, 36, 40,
-                                                44, 48, 52, 56, 60, 64, 68, 72, 76,
-                                                80, 84, 88, 92, 96, 100, 104, 108, 112,
-                                                116, 120, 124, 128, 132, 136, 140, 144,
-                                                148, 152, 156, 160, 164, 168, 172, 176,
-                                                180, 184, 188, 192, 196))
-                        )))
+            (lambda ()
+                (make-local-variable 'indent-line-function)
+                (setq indent-line-function 'ig-indent-sql
+                      tab-width 4
+                      tab-stop-list (4, 8, 12, 16, 20, 24, 28, 32, 36, 40,
+                                        44, 48, 52, 56, 60, 64, 68, 72, 76,
+                                        80, 84, 88, 92, 96, 100, 104, 108, 112,
+                                        116, 120, 124, 128, 132, 136, 140, 144,
+                                        148, 152, 156, 160, 164, 168, 172, 176,
+                                        180, 184, 188, 192, 196))
+                ))
 
- )
+  ;; Disable electric-indent mode globally while we are on Emacs 24.3.
+  ;; In Emacs 24.4, we can use electric-indent-local-mode instead.
+  (electric-indent-mode -1)
+  (add-hook 'after-change-major-mode-hook (lambda() (electric-indent-mode -1)))
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
