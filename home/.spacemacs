@@ -102,7 +102,7 @@ before layers configuration."
    dotspacemacs-use-ido nil
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content.
-   dotspacemacs-enable-paste-micro-state nil
+   dotspacemacs-enable-paste-micro-state t
    ;; Guide-key delay in seconds. The Guide-key is the popup buffer listing
    ;; the commands bound to the current keystrokes.
    dotspacemacs-guide-key-delay 0.4
@@ -163,7 +163,7 @@ layers configuration."
   (setq auto-save-file-name-transforms
         `((".*" ,temporary-file-directory t)))
 
-  (setq spacemacs-indent-sensitive-modes '(sql-mode))
+  (setq spacemacs-indent-sensitive-modes '(python-mode sql-mode))
 
   ;; Bind C-c r and C-c C-r to replace-regexp
   (global-set-key (kbd "C-c r") 'replace-regexp)
