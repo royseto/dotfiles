@@ -20,8 +20,10 @@
      ;; auto-completion
      ;; better-defaults
      emacs-lisp
-     (git :variables
-          git-gutter-use-fringe t)
+     ;; Git layer does not load on Emacs 24.3.
+     ;; https://github.com/syl20bnr/spacemacs/issues/2272
+     ;; (git :variables
+     ;;      git-gutter-use-fringe t)
      html
      javascript
      ;; markdown
