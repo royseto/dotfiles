@@ -40,7 +40,13 @@
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   ;;
+   ;; Disabling anaconda-mode, company-anaconda, and eldoc for now (impacts the
+   ;; Python layer). With a fresh install of spacemacs 0.104.2 on 2015-10-11,
+   ;; anaconda-mode seems to install, but I seem to be running into the
+   ;; following disruptive bug:
+   ;; https://github.com/proofit404/anaconda-mode/issues/124
+   dotspacemacs-excluded-packages '(anaconda-mode company-anaconda eldoc)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
