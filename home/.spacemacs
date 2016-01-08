@@ -20,16 +20,13 @@
      ;; auto-completion
      ;; better-defaults
      emacs-lisp
-     ;; Git layer does not load on Emacs 24.3.
-     ;; https://github.com/syl20bnr/spacemacs/issues/2272
-     ;; (git :variables
-     ;;      git-gutter-use-fringe t)
+     git
      html
      javascript
-     ;; markdown
-     ;; org
+     markdown
+     org
      python
-     ;; shell
+     shell
      ;; sql
      sql-rs
      ;; syntax-checking
