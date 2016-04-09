@@ -125,8 +125,8 @@ function ssh-init()
 ssh-init
 
 export PATH="$HOME/bin:$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
 source $HOME/.homesick/repos/homeshick/homeshick.sh
+export KEYTIMEOUT=1
 
 if [ -f ~/.zshrc.site ]; then
     . ~/.zshrc.site
