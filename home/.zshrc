@@ -124,7 +124,8 @@ function ssh-init()
 
 ssh-init
 
-export PATH="$HOME/bin:$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="/usr/local/pgsql/bin:$HOME/bin:$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export LD_LIBRARY_PATH=/usr/local/pgsql/lib
 source $HOME/.homesick/repos/homeshick/homeshick.sh
 export KEYTIMEOUT=1
 
