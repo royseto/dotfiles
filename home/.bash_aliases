@@ -4,7 +4,7 @@ alias ls='ls --color'
 alias ll='ls -l --color'
 alias lt='ls -lt|head'
 alias p='parallel'
-alias rcmd='R CMD BATCH --no-restore --no-save'
+alias k=kubectl
 
 if [ -f ~/.bash_aliases.site ]; then
     . ~/.bash_aliases.site
