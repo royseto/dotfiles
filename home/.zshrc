@@ -110,19 +110,31 @@ fi
 
 # setopt hist_ignore_all_dups
 
-# Ensure ssh-agent is running and has loaded private key id_rsa.  Set
-# up env vars to use ssh-agent in this shell.  Run ssh-keygen to
-# generate SSH key pair and install keychain utility using "sudo
-# apt-get install keychain" before using this.
+# Platform-specific function to load SSH private key
 
 function ssh-init()
 {
-    /usr/bin/keychain id_rsa
-    [ -z "$HOSTNAME" ] && HOSTNAME=`/bin/uname -n`
-    [ -f $HOME/.keychain/$HOSTNAME-sh ] && . $HOME/.keychain/$HOSTNAME-sh
+    if [[ $OSTYPE == 'darwin'* ]]; then
+        # MacOS
+        /usr/bin/ssh-add --apple-use-keychain ~/.ssh/id_rsa
+    elif [[ $(uname) == 'Linux' ]]; then
+        # TODO: Test this Linux branch.
+        # Linux
+        #
+        # Ensure ssh-agent is running and has loaded private key id_rsa.  Set
+        # up env vars to use ssh-agent in this shell.  Run ssh-keygen to
+        # generate SSH key pair and install keychain utility using "sudo
+        # apt-get install keychain" before using this.
+
+        /usr/bin/keychain id_rsa 2>/dev/null
+        [ -z "$HOSTNAME" ] && HOSTNAME=`/bin/uname -n`
+        [ -f $HOME/.keychain/$HOSTNAME-sh ] && . $HOME/.keychain/$HOSTNAME-sh
+    fi
 }
 
 ssh-init
+
+# TODO: Load pgsql and rvm in PATH and LD_LIBRARY_PATH only if they exist.
 
 export PATH="/usr/local/pgsql/bin:$HOME/bin:$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export LD_LIBRARY_PATH=/usr/local/pgsql/lib
