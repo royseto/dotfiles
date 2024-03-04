@@ -137,6 +137,7 @@ ssh-init
 # TODO: Load pgsql and rvm in PATH and LD_LIBRARY_PATH only if they exist.
 
 export PATH="/usr/local/pgsql/bin:$HOME/bin:$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="$HOME/.local/bin:$PATH" # For Python poetry on Mac  TODO: clean up for Linux
 export LD_LIBRARY_PATH=/usr/local/pgsql/lib
 source $HOME/.homesick/repos/homeshick/homeshick.sh
 export KEYTIMEOUT=1
