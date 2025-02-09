@@ -1,15 +1,6 @@
 # ZSH configuration file.
 # This may be helpful: http://wiki.gentoo.org/wiki/Zsh/HOWTO
 
-# Path to your oh-my-zsh installation.
-export ZSH=${HOME}/.oh-my-zsh
-
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
-
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -116,7 +107,8 @@ function ssh-init()
 {
     if [[ $OSTYPE == 'darwin'* ]]; then
         # MacOS
-        /usr/bin/ssh-add --apple-use-keychain ~/.ssh/id_rsa
+        # /usr/bin/ssh-add --apple-use-keychain ~/.ssh/id_rsa
+        /usr/bin/ssh-add --apple-use-keychain ~/.ssh/id_ed25519
     elif [[ $(uname) == 'Linux' ]]; then
         # TODO: Test this Linux branch.
         # Linux
@@ -133,14 +125,6 @@ function ssh-init()
 }
 
 ssh-init
-
-# TODO: Load pgsql and rvm in PATH and LD_LIBRARY_PATH only if they exist.
-
-export PATH="/usr/local/pgsql/bin:$HOME/bin:$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-export PATH="$HOME/.local/bin:$PATH" # For Python poetry on Mac  TODO: clean up for Linux
-export LD_LIBRARY_PATH=/usr/local/pgsql/lib
-source $HOME/.homesick/repos/homeshick/homeshick.sh
-export KEYTIMEOUT=1
 
 if [ -f ~/.zshrc.site ]; then
     . ~/.zshrc.site
